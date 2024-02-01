@@ -11,7 +11,6 @@ function App() {
     <>
       <div>
         <h2>SUP BOIII</h2>
-        <LoginOut/>
       </div>
     </>
   )
