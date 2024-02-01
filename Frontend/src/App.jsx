@@ -1,19 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import LoginOut from './components/LoginOut' 
 import './App.css'
+import DemoComp from './components/Demo'
 
+function AnotherCompinent(){
+  return (
+  <>
+      <h1>Hello</h1>
+      <h1>world</h1>
+  </>
+  )
+}
 
-function App() { 
-  const [count, setCount] = useState(0)
+function App() {
   return (
     <>
-      <div>
-        <h2>SUP BOIII</h2>
+    <div className=''>
+      This is a component
       </div>
+      <AnotherCompinent />
+      <DemoComp/>
     </>
   )
 }
+
 
 export default App
