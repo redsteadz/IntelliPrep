@@ -1,0 +1,105 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 80px;
+    background-color: black;
+}
+
+img{
+    max-height: 65%;
+    max-width: 65%;
+    object-fit: cover;
+  }
+  
+
+#buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#buttons li{
+    list-style: none;
+    padding: 0px 20px;
+    position: relative;
+}
+
+
+#buttons li a{
+    text-decoration: none;
+    font-size: 1.3rem;
+    color:white;
+    font-weight: 650;
+    transition: 0.2s ease-in-out;
+}
+
+#buttons li a:hover{
+    color: #4F6FA6;
+}
+
+
+#buttons li a:hover::after{
+    content: "";
+    width: 30%;
+    height: 1px;
+    background: #4F6FA6;
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+}
+
+#buttons li a.dash{
+    color: white;
+    pointer-events: none;
+}
+
+
+#toggle i{
+    color:white;
+}
+
+#toggle {
+    display: none;
+}
+
+@media screen and (max-width:769px){
+    #buttons{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: fixed;
+        top:90px;
+        right: -300px;
+        width: 190px;
+        height: 100vh;
+        background: black;
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+        padding: 40px 0 0 10px;
+    }
+
+    #buttons.active{
+        right: 0px;
+    }
+    
+
+
+    #buttons li{
+        margin-bottom: 10px;
+    }
+
+    #toggle i{
+        font-size:24px;
+        cursor: pointer;
+    }
+
+    #toggle {
+        display: block;
+    }
+
+}
+
+
+
+
