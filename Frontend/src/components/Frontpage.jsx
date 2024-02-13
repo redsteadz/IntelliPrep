@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "./Navbar";
-import "./fontpagestyles.css";
+import "./frontpagestyles.css"
 import img from "./Animation - 1707147425041.json";
 
-function main() {
+function Front() {
     return <>
      <Navbar />
      <div className="home-container">
@@ -23,4 +23,5 @@ with AI insight!</h1>
      </div>
     </>
 };
-export default main;
+
+export default Front
