@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import "./frontpagestyles.css"
-import img from "./Animation - 1707147425041.json";
+import img from "./Animation - 1707147425041.svg";
 
 function Front() {
     return <>
