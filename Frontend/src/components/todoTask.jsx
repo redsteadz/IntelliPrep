@@ -12,7 +12,7 @@ function Step({ step, checked }) {
   return (
     <motion.li
       onClick={() => setCheck(!check)}
-      className={`rounded-lg p-1 border-white border ${
+      className={`rounded-lg p-1 border-white border text-sm ${
         (check || checked) ? "bg-blue-500 text-black" : ""
       }`}
       whileTap={{ scale: 0.95 }}
@@ -50,7 +50,7 @@ function TodoStep({ task }) {
               : <IoMdCheckmarkCircleOutline size={24} />}
           </div>
           <div className={` cursor-pointer `}>
-            <h3 onClick={() => setCheck(!check)}>
+            <h3 onClick={() => setCheck(!check)} className="text-sm font-bold">
               {task.title}
             </h3>
             <ul className="ml-4 space-y-2">
@@ -79,7 +79,7 @@ function TodoTasks({ tasks, title }) {
         onClick={() => setCollapse(!collapse)}
       >
         {collapse ? <BiCollapseVertical /> : <BiCollapseAlt />}
-        <h1 className="text-xl font-bold">
+        <h1 className="text-md font-bold">
           {title}
         </h1>
       </div>
