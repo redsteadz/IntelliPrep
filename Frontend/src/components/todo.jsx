@@ -114,18 +114,19 @@ The format is; {
 No other format is accepted, Only this format is accepted.
 `;
 
-    const apiUrl = "http://localhost:11434/api/generate";
+    // const apiUrl = "http://localhost:11434/api/generate";
+    const apiUrl = "http://localhost:3000/test";
     const data = {
       model: "orca-mini",
       prompt: template + "\nuser_input:" + userInput,
     };
 
     const requestOptions = {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      // body: JSON.stringify(data),
     };
 
     return new Promise((resolve, reject) => {
@@ -138,15 +139,16 @@ No other format is accepted, Only this format is accepted.
         })
         .then((data) => {
           // Split the response string into an array of JSON strings
-          const jsonStrings = data.trim().split("\n");
+          // const jsonStrings = data.trim().split("\n");
+          //
+          // // Parse each JSON string individually
+          // const parsedData = jsonStrings.map((jsonString) =>
+          //   JSON.parse(jsonString)
+          // );
+          // const json = parsedData.map((e) => e.response).join("");
 
-          // Parse each JSON string individually
-          const parsedData = jsonStrings.map((jsonString) =>
-            JSON.parse(jsonString)
-          );
-          const json = parsedData.map((e) => e.response).join("");
-
-          resolve(json);
+          // resolve(json);
+          resolve(data);
         })
         .catch((error) => {
           reject(error);
@@ -183,7 +185,7 @@ No other format is accepted, Only this format is accepted.
           fetchAndUpdateState={fetchAndUpdateState}
         />
       </div>
-      {jsonState ? <TodoPP json={jsonState}/> : <p> WOW Such empty </p>}
+      {jsonState ? <TodoPP json={jsonState} input={input}/> : <p> WOW Such empty </p>}
     </div>
   );
 }

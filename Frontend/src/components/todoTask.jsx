@@ -1,62 +1,109 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { BiCollapseVertical } from "react-icons/bi";
 import { BiCollapseAlt } from "react-icons/bi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { IoMdCheckmarkCircle } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
 
-function TodoStep({ task }) {
+function Step({ step, checked }) {
   const [check, setCheck] = useState(false);
+
   return (
-    <div className="p-3 bg-cyan-700 rounded-lg">
-      <div>
-        <div
-          onClick={() => setCheck(!check)}
-          className="flex gap-3"
-        >
-          {check
-            ? <IoMdCheckmarkCircle size={24} />
-            : <IoMdCheckmarkCircleOutline size={24} />}
-          <div className={` ${check ? "line-through" : ""}`}>
-            <h3>
-              {task.title}
-            </h3>
-            <ul className="ml-4 space-y-2">
-              {task.steps?.map((step) => (
-                <li className="rounded-lg p-1 border-white border">{step}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <motion.li
+      onClick={() => setCheck(!check)}
+      className={`rounded-lg p-1 border-white border ${
+        (check || checked) ? "bg-blue-500 text-black" : ""
+      }`}
+      whileTap={{ scale: 0.95 }}
+      style={{ cursor: "pointer" }}
+      whileHover={{ scale: 1.05 }}
+    >
+      {step}
+    </motion.li>
   );
 }
 
-function TodoTasks({ task }) {
+function TodoStep({ task }) {
+  const [check, setCheck] = useState(false);
+  const [hover, setHover] = useState(false);
+
+  return (
+    <motion.div
+      className={`my-4 p-3 rounded-lg ${check ? "line-through" : ""}`}
+      style={{ backgroundColor: check ? "#000" : "rgb(21,94,117)" }}
+      animate={{ backgroundColor: check ? "#000" : "rgb(21,94,117)" }}
+      initial={{ backgroundColor: "#000" }} // Set initial color
+      transition={{ duration: 0.2 }} // Set the duration of the transition
+      onMouseOver={() => {
+        setHover(true);
+      }}
+      onMouseOut={() => {
+        setHover(false);
+      }}
+    >
+      <div>
+        <div className="flex gap-3 justify-stretch">
+          <div onClick={()=>{setCheck(!check)}} style={{ cursor: "pointer" }}>
+            {check
+              ? <IoMdCheckmarkCircle size={24} />
+              : <IoMdCheckmarkCircleOutline size={24} />}
+          </div>
+          <div className={` cursor-pointer `}>
+            <h3 onClick={() => setCheck(!check)}>
+              {task.title}
+            </h3>
+            <ul className="ml-4 space-y-2">
+              {task.steps?.map((step) => <Step step={step} checked={check} />)}
+            </ul>
+          </div>
+          <motion.div
+            className="ml-auto"
+            whileHover={{ scale: 1.1, opacity: 0.8 }}
+          >
+            {hover ? <FaEdit /> : ""}
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function TodoTasks({ tasks, title }) {
   const [collapse, setCollapse] = useState(true);
 
   return (
-    <div className="p-3 min-h-fit bg-cyan-600 rounded-lg w-[75vw] mt-10">
+    <div className="p-3 min-h-fit border-b-white border rounded-lg w-[75vw] mt-10">
       <div
         className="flex items-center gap-3 "
         onClick={() => setCollapse(!collapse)}
       >
         {collapse ? <BiCollapseVertical /> : <BiCollapseAlt />}
         <h1 className="text-xl font-bold">
-          ZA TITLE
+          {title}
         </h1>
       </div>
-      <div className={`${collapse ? "hidden" : "block"}`}>
-        <TodoStep task={task} />
-      </div>
+      <AnimatePresence>
+        {collapse && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            style={{ overflow: "hidden" }}
+          >
+            {tasks.map((task) => <TodoStep task={task} />)}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function TodoPP({ json }) {
+function TodoPP({ json, input }) {
   return (
     <div className="text-white flex flex-col justify-center items-center ">
-      {json.tasks.map((task) => <TodoTasks task={task} />)}
+      <TodoTasks tasks={json.tasks} title={input} />
     </div>
   );
 }
