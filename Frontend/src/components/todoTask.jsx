@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BiCollapseVertical } from "react-icons/bi";
 import { BiCollapseAlt } from "react-icons/bi";
@@ -24,13 +24,46 @@ function Step({ step, checked }) {
   );
 }
 
-function TodoStep({ task }) {
+function TodoStep({ task, params, draggedItem, dragOverItem, setTask, oldTask}) {
   const [check, setCheck] = useState(false);
   const [hover, setHover] = useState(false);
+  
+  const handeDragStart = (e, params) =>{
+    draggedItem.current = params
+    dragOverItem.current = e.target 
+    dragOverItem.current.addEventListener("dragend", handleDragEnd)
+    console.log(params);
+  }
+  
+  const handleDragEnter = (e, id) =>{
+    e.preventDefault();
+    console.log("over", id);
+    if (draggedItem != id){
+      setTask(oldTask => {
+        let newTask = JSON.parse(JSON.stringify(oldTask));
+        console.log(newTask);
+        let temp = newTask[draggedItem.current]
+        // console.log(temp);
+        newTask[draggedItem.current] = newTask[id] 
+        newTask[id] = temp
+        // newTask[draggedItem].splice(id, 0, taskList[id])
+        draggedItem.current = params
+        return newTask;
+      })
+    }
+  }
+
+  const handleDragEnd = (e, params) =>{
+    dragOverItem.current.removeEventListener("dragend", handleDragEnd)
+    dragOverItem.current = null
+    draggedItem.current = null
+    console.log("over");
+  }
 
   return (
     <motion.div
-      className={`my-4 p-3 rounded-lg ${check ? "line-through" : ""}`}
+      draggable
+      className={`my-7 p-3 rounded-lg ${check ? "line-through" : ""}`}
       style={{ backgroundColor: check ? "#000" : "rgb(21,94,117)" }}
       animate={{ backgroundColor: check ? "#000" : "rgb(21,94,117)" }}
       initial={{ backgroundColor: "#000" }} // Set initial color
@@ -41,10 +74,17 @@ function TodoStep({ task }) {
       onMouseOut={() => {
         setHover(false);
       }}
+      onDragStart={(e) => handeDragStart(e, params)}
+      onDragEnter={(e) => handleDragEnter(e, params)}
     >
       <div>
         <div className="flex gap-3 justify-stretch">
-          <div onClick={()=>{setCheck(!check)}} style={{ cursor: "pointer" }}>
+          <div
+            onClick={() => {
+              setCheck(!check);
+            }}
+            style={{ cursor: "pointer" }}
+          >
             {check
               ? <IoMdCheckmarkCircle size={24} />
               : <IoMdCheckmarkCircleOutline size={24} />}
@@ -54,7 +94,7 @@ function TodoStep({ task }) {
               {task.title}
             </h3>
             <ul className="ml-4 space-y-2">
-              {task.steps?.map((step) => <Step step={step} checked={check} />)}
+              {task.steps?.map((step, id) => <Step step={step} checked={check} key={id} />)}
             </ul>
           </div>
           <motion.div
@@ -71,6 +111,9 @@ function TodoStep({ task }) {
 
 function TodoTasks({ tasks, title }) {
   const [collapse, setCollapse] = useState(true);
+  const [saveTasks, setSaveTasks] = useState(tasks);
+  const draggedItem = useRef();
+  const dragOverItem = useRef();
 
   return (
     <div className="p-3 min-h-fit border-b-white border rounded-lg w-[75vw] mt-10">
@@ -92,7 +135,7 @@ function TodoTasks({ tasks, title }) {
             transition={{ duration: 0.2 }}
             style={{ overflow: "hidden" }}
           >
-            {tasks.map((task) => <TodoStep task={task} />)}
+            {saveTasks.map((task, id) => <TodoStep  task={task} key={id} params={id} draggedItem={draggedItem} dragOverItem={dragOverItem} setTask={setSaveTasks} oldTask={saveTasks} />)}
           </motion.div>
         )}
       </AnimatePresence>
