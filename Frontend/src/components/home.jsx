@@ -15,4 +15,8 @@ function Home()
       
     </div>
 }
+<<<<<<< Updated upstream
 export default Home;
+=======
+export default Home;
+>>>>>>> Stashed changes
