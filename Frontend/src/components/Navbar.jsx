@@ -13,7 +13,7 @@ function SignIn(){
 
 
 class Navbar extends Component {
-
+    
     state={clicked:false};
     handleClick=()=>{
         this.setState({

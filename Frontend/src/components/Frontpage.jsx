@@ -1,9 +1,18 @@
 import React from "react";
 import Navbar from "./Navbar";
 import "./frontpagestyles.css"
-import img from "./Animation - 1707147425041.svg";
+import Lottie from "react-lottie"
+import banner from "../components/Animation - 1707147425041.json"
 
 function Front() {
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: banner,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    };
     return <>
      <Navbar />
      <div className="home-container">
@@ -18,7 +27,11 @@ with AI insight!</h1>
             </button>
         </div>
         <div className="home-image">
-         <img src={img} alt="svg-img" />
+        <Lottie
+          options= {defaultOptions}
+          height={400} 
+          width={400}
+        />
         </div>
      </div>
     </>

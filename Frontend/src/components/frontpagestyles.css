@@ -20,10 +20,7 @@
     padding-top: 3rem;
   }
   .home-image{
-    position: absolute;
-    top: 100px;
-    left: 590px;
-    max-width: 400px;
+    min-width: 600px;
   
   }
   .home-text{
