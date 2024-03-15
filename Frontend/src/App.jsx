@@ -1,5 +1,5 @@
 import './App.css'
-import Front from './components/Frontpage.jsx'
+// import Front from './components/Frontpage.jsx'
 import Card from './components/Card.jsx'
 
 function App() {
