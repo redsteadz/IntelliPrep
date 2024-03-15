@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SignIn, SignUp } from "./SignUpIn";
+import { motion, AnimatePresence} from 'framer-motion';
 
 function SignForm() {
   const [activeTab, setActiveTab] = useState('signIn');
@@ -12,24 +13,30 @@ function SignForm() {
     <div className="w-full h-full flex justify-center items-center">
       <div className="text-white w-fit">
         <div className="flex justify-center items-center gap-1">
-          <button
+          <motion.button
             onClick={() => handleTabChange('signIn')}
-            className={` shadow-sky-800 font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline italic ${
+            whileTap={{scale:0.9}}
+            transition={{ duration: 0.2 }}
+            className={`shadow-sky-800 font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline italic ${
               activeTab === 'signIn' ? 'bg-blue-700 text-white' : 'bg-blue-200  text-black'
             }`}
           >
             Log In
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={() => handleTabChange('signUp')}
-            className={` shadow-sky-800 font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline italic ${
+            whileTap={{scale:0.9}}
+            transition={{ duration: 0.2 }}
+            className={`shadow-sky-800 font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline italic ${
               activeTab === 'signUp' ? 'bg-blue-700 text-white' : 'bg-blue-200 text-black '
             }`}
           >
             Register
-          </button>
+          </motion.button>
         </div>
-        {activeTab === 'signIn' ? <SignIn /> : <SignUp />}
+        <motion.div>
+          {activeTab === 'signIn' ? <SignIn /> : <SignUp />}
+        </motion.div>
       </div>
     </div>
   );
