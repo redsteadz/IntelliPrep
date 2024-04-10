@@ -62,7 +62,6 @@ function HomeImage() {
 function Front() {
   return (
     <>
-      <Navbar />
       <div className="home-container">
         <HomeText />
         <HomeImage />

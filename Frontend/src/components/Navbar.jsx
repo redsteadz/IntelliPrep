@@ -1,43 +1,34 @@
 import React, { useState } from "react";
 import "./NavbarStyles.css";
-
-function LogIn() {
-  alert("Clicked Log In");
-}
-
-function SignIn() {
-  alert("Clicked Sign In");
-}
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked(!clicked);
-  };
-
   return (
     <>
-      <nav>
-        <button >
+      <nav className="bg-transparent">
+        <Link to="/">
           <img
             src="https://github.com/Noman-Ahmed-Khan/Hosted-images/blob/main/IntelliPrep%20Logo(2).png?raw=true"
             alt="INTELLIPREP LOGO"
           />
-        </button>
+        </Link>
         <div>
-          <ul id="buttons" className={clicked ? "#buttons active" : "#buttons"}>
+          <ul id="buttons">
             <li>
-              <button onClick={SignIn}>SIGN IN</button>
+              <Link to="/signup">
+                <button>SIGN IN</button>
+              </Link>
             </li>
             {/* <li><a href="index.html" class="dash">|</a></li> */}
             <li>
-              <button onClick={LogIn}>LOG IN</button>
+              <Link to="/signup">
+                <button>LOG IN</button>
+              </Link>
             </li>
           </ul>
         </div>
-        <div id="toggle" onClick={handleClick}>
-          <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+        <div id="toggle">
+          <i></i>
         </div>
       </nav>
     </>

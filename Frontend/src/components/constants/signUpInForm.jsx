@@ -5,7 +5,7 @@ const loginFields=[
         id:"email-address",
         name:"email",
         type:"email",
-        autoComplete:"email",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Email address"   
     },
@@ -15,7 +15,7 @@ const loginFields=[
         id:"password",
         name:"password",
         type:"password",
-        autoComplete:"current-password",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Password"   
     }
@@ -28,7 +28,7 @@ const signupFields=[
         id:"username",
         name:"username",
         type:"text",
-        autoComplete:"username",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Username"   
     },
@@ -38,7 +38,7 @@ const signupFields=[
         id:"email-address",
         name:"email",
         type:"email",
-        autoComplete:"email",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Email address"   
     },
@@ -48,7 +48,7 @@ const signupFields=[
         id:"password",
         name:"password",
         type:"password",
-        autoComplete:"current-password",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Password"   
     },
@@ -58,7 +58,7 @@ const signupFields=[
         id:"confirm-password",
         name:"confirm-password",
         type:"password",
-        autoComplete:"confirm-password",
+        autoComplete:"off",
         isRequired:true,
         placeholder:"Confirm Password"   
     }

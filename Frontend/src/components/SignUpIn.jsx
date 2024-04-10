@@ -21,7 +21,7 @@ const SignUp = () => {
     };
 
     return (
-        <div className="flex justify-center items-center w-72">
+        <div className="flex justify-center items-center w-72 bg">
             <form onSubmit={handleSubmit} className="max-w-md w-full px-4">
                 {signupFields.map((field, index) => (
                     <div key={index} className="mb-4">

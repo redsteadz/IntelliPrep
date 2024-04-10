@@ -10,7 +10,7 @@ function SignForm() {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className=" min-h-80 flex justify-center items-center">
       <div className="text-white w-fit">
         <div className="flex justify-center items-center gap-1">
           <motion.button
