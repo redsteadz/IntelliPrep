@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { SignIn, SignUp } from "./SignUpIn";
 import { motion, AnimatePresence} from 'framer-motion';
 
-function SignForm() {
-  const [activeTab, setActiveTab] = useState('signIn');
+function SignForm({state}) {
+  const [activeTab, setActiveTab] = useState(state);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);

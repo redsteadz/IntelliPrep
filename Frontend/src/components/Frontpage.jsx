@@ -1,8 +1,9 @@
 import React from "react";
 import Lottie from "react-lottie";
 import banner from "../components/Animation - 1707147425041.json";
-import Navbar from "./Navbar";
+import Button from "./template";
 import "./frontpagestyles.css";
+import { Link } from "react-router-dom";
 
 function HomeContent() {
   return (
@@ -12,9 +13,7 @@ function HomeContent() {
         answers, personalized tips, and a virtual study partner—all in one app.
         Experience the future of learning with AI as your ultimate companion.
       </h4>
-      <button className="home-button hover:bg-blue-600">
-        Get Started
-      </button>
+      <Link ><Button content="Get Started"/></Link>
     </div>
   );
 }

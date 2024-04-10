@@ -39,7 +39,7 @@ const SignUp = () => {
                         />
                     </div>
                 ))}
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sign Up</button>
+                <button type="submit" className="bg-transparent border-2 border-blue-300 text-blue-300 font-bold py-2 px-4 rounded hover:text-white hover:bg-blue-300 ">Sign Up</button>
             </form>
         </div>
     );
@@ -81,7 +81,7 @@ const SignIn = () => {
                         />
                     </div>
                 ))}
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sign In</button>
+                <button type="submit" className="bg-transparent border-2 border-blue-300 text-blue-300 font-bold py-2 px-4 rounded hover:text-white hover:bg-blue-300 ">Sign In</button>
             </form>
         </div>
     );
