@@ -1,4 +1,3 @@
-import "./todo.css";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
