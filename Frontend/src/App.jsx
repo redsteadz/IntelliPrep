@@ -1,20 +1,20 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import Front from "./components/Frontpage.jsx";
-import SignForm from "./components/SignForm.jsx";
-import Navbar from "./components/Navbar.jsx";
-function App() {
+import { useState } from 'react'
+import MainPromo from './components/mainPage'
+import Navbar from './components/NavBar' 
+import TodoPage from './components/todo'
+import './App.css'
+
+        // <Navbar/>
+        // <MainPromo/>
+
+function App() { 
   return (
     <>
-      <div className="bg-SignInBackground">
-      <Navbar/>
-      <Routes>
-        <Route path="/signup" element={<SignForm/>} />
-        <Route path="/" element={<Front/>} />
-      </Routes>
+      <div className='font-primary max-h-[100vh] text-white'>
+        <TodoPage/>
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
