@@ -5,7 +5,7 @@ import SignForm from "./components/SignForm.jsx";
 function App() {
   return (
     <>
-      <SignForm />
+      <Front/>
     </>
   );
 }

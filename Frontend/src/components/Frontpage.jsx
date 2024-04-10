@@ -12,7 +12,7 @@ function HomeContent() {
         answers, personalized tips, and a virtual study partner—all in one app.
         Experience the future of learning with AI as your ultimate companion.
       </h4>
-      <button className="home-button">
+      <button className="home-button hover:bg-blue-600">
         Get Started
       </button>
     </div>
