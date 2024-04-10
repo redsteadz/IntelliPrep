@@ -13,7 +13,7 @@ function HomeContent() {
         answers, personalized tips, and a virtual study partner—all in one app.
         Experience the future of learning with AI as your ultimate companion.
       </h4>
-      <Link ><Button content="Get Started"/></Link>
+      <Link to="/todo"><Button content="Get Started"/></Link>
     </div>
   );
 }

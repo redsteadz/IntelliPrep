@@ -157,13 +157,13 @@ No other format is accepted, Only this format is accepted.
 
   const [input, setInput] = useState("");
   const [jsonState, setJsonState] = useState(null);
-
+  const [text, setText] = useState("");
   const fetchAndUpdateState = async (userInput) => {
     try {
       const json = await generateTaskJson(userInput);
       try {
         const jsonObject = JSON.parse(json);
-        console.log(jsonObject)
+        setText(userInput);
         setJsonState(jsonObject);
       } catch (error) {
         console.error("Error parsing JSON:", error);
@@ -184,7 +184,7 @@ No other format is accepted, Only this format is accepted.
           fetchAndUpdateState={fetchAndUpdateState}
         />
       </div>
-      {jsonState ? <TodoPP json={jsonState} input={input}/> : <p> WOW Such empty </p>}
+      {jsonState ? <TodoPP json={jsonState} input={text}/> : <p> WOW Such empty </p>}
     </div>
   );
 }
