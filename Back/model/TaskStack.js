@@ -4,8 +4,25 @@ const { Schema } = mongoose;
 
 // Define Task schema
 const taskStack = new Schema({
+  sub: {
+    type: String,
+    required: true,
+  },
   prompt: { type: String, required: true },
-  tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+  tasks: [{
+    title: {
+      type: String,
+      required: true,
+    },
+    steps: [{
+      type: String,
+      required: true,
+    }],
+    description: {
+      type: String,
+      required: true,
+    },
+  }],
 });
 
 // Export Task model

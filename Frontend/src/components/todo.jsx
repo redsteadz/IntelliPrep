@@ -5,7 +5,8 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import axios from "axios";
 import TodoPP from "./todoTask";
 import { useEffect, useState } from "react";
-// import  generateTaskJson from "./generateTaskJSON";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
 
 function TodoStep({ step }) {
   return (
@@ -26,9 +27,7 @@ function Todo({ tasks }) {
         </h1>
         <div>
           <ul>
-            {
-              tasks.steps.map((step) => <TodoStep step={step} />)
-            }
+            {tasks.steps.map((step) => <TodoStep step={step} />)}
           </ul>
         </div>
       </div>
@@ -43,27 +42,27 @@ function TodoList({ jsonState }) {
         after:left-0 after:w-[100%] after:h-[3px] after:bg-blue-500">
         Today
       </h1>
-      {
-        jsonState !== null ? (
+      {jsonState !== null
+        ? (
           jsonState.map((tasks) => (
-          <div>
+            <div>
               {tasks.name}
             </div>
           ))
           // console.log(jsonState)
-        ): <p>Such empty</p>
-      }
+        )
+        : <p>Such empty</p>}
     </div>
   );
 }
 
-function TodoInput({ input, setInput, setJsonState, fetchAndUpdateState }) {
+function TodoInput({ input, setInput, addTask }) {
   const [toggleAI, setToggleAI] = useState(false);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.target.value = "";
-      fetchAndUpdateState(input);
+      addTask(input);
     }
   };
 
@@ -92,44 +91,67 @@ function TodoInput({ input, setInput, setJsonState, fetchAndUpdateState }) {
 }
 
 function TodoPage() {
+  const { isAuthenticated, isLoading,user } = useAuth0();
+  if (isLoading) return <div>Loading...</div>;
+  if (!isAuthenticated) return <Navigate to="/" />;
   const [input, setInput] = useState("");
   const [jsonState, setJsonState] = useState(null);
   const [text, setText] = useState("");
-  const fetchAndUpdateState = async (userInput) => {
-
+  const fetchAndUpdateState = async () => {
     try {
-      const json = await axios.get('http://localhost:3100/tasks', {
-        headers:{
-          Authorization: "123"
-        }
+      const json = await axios.get("http://localhost:3100/tasks", {
+        headers: {
+          Authorization: user.sub,
+        },
       });
       try {
         const jsonObject = json.data;
-        setText(userInput);
         console.log("JSON data:", jsonObject);
         setJsonState(jsonObject);
       } catch (error) {
         console.error("Error parsing JSON:", error);
       }
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  const addTask = async (input) => {
+    try {
+      await axios.post("http://localhost:3100/tasks", {
+        prompt: input,
+      }, {
+        headers: {
+          Authorization: user.sub,
+        },
+      });
+      // Wait 3 seconds before fetching updated data
+      setTimeout(fetchAndUpdateState, 1000);
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndUpdateState();
+  }, []);
+
   return (
-    <div className="text-white flex flex-col justify-center items-center">
-      <div className="flex flex-row justify-center align-center">
-        <TodoInput
-          input={input}
-          setInput={setInput}
-          setJsonState={setJsonState}
-          fetchAndUpdateState={fetchAndUpdateState}
-        />
+    isAuthenticated &&
+    (
+      <div className="text-white flex flex-col justify-center items-center">
+        <div className="flex flex-row justify-center align-center">
+          <TodoInput
+            input={input}
+            setInput={setInput}
+            addTask={addTask}
+          />
+        </div>
+        {jsonState
+          ? jsonState.map((val) => <TodoPP json={val} input={val.prompt} />)
+          : <p>WOW Such empty</p>}
       </div>
-      {/* jsonState ? <TodoPP json={jsonState} input={text}/> : <p> WOW Such empty </p> */}
-      {jsonState && <TodoList jsonState={jsonState} />}
-    </div>
+    )
   );
 }
 

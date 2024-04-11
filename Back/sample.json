@@ -1,0 +1,39 @@
+{
+  "tasks": [
+    {
+      "title": "Create a team-building activity",
+      "steps": [
+        "Identify the common interests among team members",
+        "Develop a shared vision for the project"
+      ],
+      "description": "Task 1: Identify common interests"
+    },
+    {
+      "title": "Hold a virtual team meeting to discuss the activity and ensure everyone is on board",
+      "steps": [
+        "Schedule the team meeting",
+        "Establish an agenda",
+        "Assign roles"
+      ],
+      "description": "Task 2: Schedule the team meeting"
+    },
+    {
+      "title": "Divide the team into pairs or small groups for further discussion and brainstorming",
+      "steps": ["Develop icebreaker games", "Encourage open communication"],
+      "description": "Task 3: Develop icebreaker games"
+    },
+    {
+      "title": "Assign group roles and responsibilities to encourage collaboration",
+      "steps": [
+        "Hold a vote to determine roles",
+        "Establish clear expectations and goals"
+      ],
+      "description": "Task 4: Hold a vote to determine roles"
+    },
+    {
+      "title": "Provide opportunities for team members to give feedback on the activity and their experience",
+      "steps": ["Schedule follow-up meetings", "Encourage open communication"],
+      "description": "Task 5: Schedule follow-up meetings"
+    }
+  ]
+}
