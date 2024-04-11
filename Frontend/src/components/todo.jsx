@@ -2,7 +2,7 @@ import { GiArtificialIntelligence } from "react-icons/gi";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaRegCheckCircle } from "react-icons/fa";
-
+import axios from "axios";
 import TodoPP from "./todoTask";
 import { useEffect, useState } from "react";
 // import  generateTaskJson from "./generateTaskJSON";
@@ -45,7 +45,11 @@ function TodoList({ jsonState }) {
       </h1>
       {
         jsonState !== null ? (
-          jsonState.tasks.map((tasks) => <Todo tasks={tasks} />)
+          jsonState.map((tasks) => (
+          <div>
+              {tasks.name}
+            </div>
+          ))
           // console.log(jsonState)
         ): <p>Such empty</p>
       }
@@ -88,82 +92,21 @@ function TodoInput({ input, setInput, setJsonState, fetchAndUpdateState }) {
 }
 
 function TodoPage() {
-  function generateTaskJson(userInput) {
-    const template = `
-You will only make JSON, No other text surrounding it is acceptable in anyway THIS IS CRITICAL 
-The text will compose of a break down of a task given by a user.
-
-The format is; {
-  "tasks": [
-    {
-      "title": ##TITLE,
-      "steps": [
-        ##STRING_OF_STEPS
-      ]
-   },
-    {
-      "title": ##TITLE,
-      "steps": [
-        ##STRING OF STEPS
-      ]
-   }
-    ...
-  ]
-}
-No other format is accepted, Only this format is accepted.
-`;
-
-    // const apiUrl = "http://localhost:11434/api/generate";
-    const apiUrl = "http://localhost:3000/test";
-    const data = {
-      model: "orca-mini",
-      prompt: template + "\nuser_input:" + userInput,
-    };
-
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // body: JSON.stringify(data),
-    };
-
-    return new Promise((resolve, reject) => {
-      fetch(apiUrl, requestOptions)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.text();
-        })
-        .then((data) => {
-          // Split the response string into an array of JSON strings
-          // const jsonStrings = data.trim().split("\n");
-          //
-          // // Parse each JSON string individually
-          // const parsedData = jsonStrings.map((jsonString) =>
-          //   JSON.parse(jsonString)
-          // );
-          // const json = parsedData.map((e) => e.response).join("");
-
-          // resolve(json);
-          resolve(data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
   const [input, setInput] = useState("");
   const [jsonState, setJsonState] = useState(null);
   const [text, setText] = useState("");
   const fetchAndUpdateState = async (userInput) => {
+
     try {
-      const json = await generateTaskJson(userInput);
+      const json = await axios.get('http://localhost:3100/tasks', {
+        headers:{
+          Authorization: "123"
+        }
+      });
       try {
-        const jsonObject = JSON.parse(json);
+        const jsonObject = json.data;
         setText(userInput);
+        console.log("JSON data:", jsonObject);
         setJsonState(jsonObject);
       } catch (error) {
         console.error("Error parsing JSON:", error);
@@ -184,7 +127,8 @@ No other format is accepted, Only this format is accepted.
           fetchAndUpdateState={fetchAndUpdateState}
         />
       </div>
-      {jsonState ? <TodoPP json={jsonState} input={text}/> : <p> WOW Such empty </p>}
+      {/* jsonState ? <TodoPP json={jsonState} input={text}/> : <p> WOW Such empty </p> */}
+      {jsonState && <TodoList jsonState={jsonState} />}
     </div>
   );
 }
